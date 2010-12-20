@@ -2,15 +2,13 @@
 <head>
 <script type="text/javascript" src="script/jquery-1.4.4.min.js"></script>
 <script type="text/javascript" src="script/asciimation-plugin.js"></script>
-<style type="text/css" rel="Stylesheet">
-</style>
 <script type="text/javascript">
 
   $(function() {
     $("#animation").asciimation({
       'frameClass' : 'frame',
       'framesPerSecond' : 10,
-      removeSourceFrames : true
+      'removeSourceFrames' : true
     });
     $("#animation").asciimation("start").css("border", "1px red solid");
     setTimeout(function() {$("#animation").asciimation("stop")}, 3000);
