@@ -8,72 +8,106 @@
  * Date: Tue Dec 21 21:31:12 RST 2010
  */
 
+
 (function( $ ){
 
-  var jTarget;
-  var currentFrame = 0;
-  var frames = [];
-  var timer;
-  var settings = {
-    'frameClass' : 'frame',
-    'framesPerSecond' : 25,
-    'removeSourceFrames' : false
-  };
-  
   var methods = {
     init : function( options ) {
-    
-      // store target
-      jTarget = this;
-      
-      // merge options with settings
-      if ( options ) { 
-        $.extend( settings, options );
-      }
-      // extract frames from DOM and add text to frames array
-      $("."+settings.frameClass).each(function() {frames.push($(this).text());});
-      // optionaly remove source frames from DOM
-      if(settings.removeSourceFrames) {
-        $("."+settings.frameClass).remove();
-      }
-      // insert pre into animation container
-      return this.each(function() {
-        $(this).html("<pre/>");
+
+      return this.each(function(){
+
+        var $this = $(this);
+        var data = $this.data('asciimation');
+
+        // If the plugin hasn't been initialized yet
+        if ( ! data ) {
+
+          var settings = {
+            'frameClass' : 'frame',
+            'framesPerSecond' : 25
+          };
+
+          if ( options ) { 
+            $.extend( settings, options );
+          }
+          
+          var frames = [];
+          $("." + settings.frameClass).each( function() {frames.push($(this).text());} );
+
+          // insert the pre tag
+          $this.html("<pre/>");
+
+          $this.data('asciimation', {
+            target : $this,
+            frames : frames,
+            fps : settings.framesPerSecond,
+            currentFrame : 0,
+            timer : null,
+            pre : $this.find("pre")
+          });
+          
+        }
       });
     },
-    stop : function() {
-      clearInterval(timer);
-      return this;
+    start : function( ) {
+
+      return this.each(function(){
+
+        var $this = $(this);
+        var data = $this.data('asciimation');
+
+        if ( ! data ) return;
+
+        data.timer = setInterval(function() {
+
+          data.pre.text(data.frames[data.currentFrame]);
+          data.currentFrame = (data.currentFrame + 1) % data.frames.length;          
+
+        }, Math.floor(1000.0/data.fps));
+        
+      })
+
     },
-    start : function() {
-      if(timer != undefined) {
-        clearInterval(timer);
-      }
-      timer = setInterval(function() {
-         jTarget.find("pre").text(frames[currentFrame]);
-         currentFrame = (currentFrame + 1) % frames.length;
-      }, 
-      Math.floor(1000.0/settings.framesPerSecond));
-      return this;
+    stop : function( ) { 
+
+      return this.each(function(){
+
+        var $this = $(this);
+        var data = $this.data('asciimation');
+
+        if ( ! data ) return;
+        clearInterval(data.timer);
+        data.timer = null;
+      })    
     },
-    tempo : function(framesPerSecond) {
-      if(typeof(framesPerSecond) === "number") {
-        settings.framesPerSecond = Math.max(1, framesPerSecond); // avoid dividebyzero
-        methods.start();
-      }
-      return this;
+    fps : function( framesPerSecond ) { 
+
+        var $this = $(this);
+        var data = $this.data('asciimation');
+
+        if ( ! data ) return;
+        
+        data.fps = framesPerSecond;
+        clearInterval(data.timer);
+        data.timer = setInterval(function() {
+
+          data.pre.text(data.frames[data.currentFrame]);
+          data.currentFrame = (data.currentFrame + 1) % data.frames.length;          
+
+        }, Math.floor(1000.0/data.fps));      
     }
   };
 
   $.fn.asciimation = function( method ) {
-  
-    // Method calling logic
+
     if ( methods[method] ) {
-      return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+      return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
     } else if ( typeof method === 'object' || ! method ) {
       return methods.init.apply( this, arguments );
     } else {
-      $.error( 'Method ' +  method + ' does not exist on jQuery.asciimation' );
-    }
+      $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
+    }    
+
   };
+
 })( jQuery );
