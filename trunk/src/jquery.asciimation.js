@@ -1,5 +1,3 @@
-/* http://docs.jquery.com/Plugins/Authoring */
-
 (function( $ ){
 
   var jTarget;
