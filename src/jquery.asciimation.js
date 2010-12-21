@@ -33,21 +33,29 @@
         $(this).html("<pre/>");
       });
     },
-    stop : function( ) {
+    stop : function() {
       clearInterval(timer);
       return this;
     },
-    start : function( ) {
+    start : function() {
+      if(timer != undefined) {
+        clearInterval(timer);
+      }
       timer = setInterval(function() {
          jTarget.find("pre").text(frames[currentFrame]);
          currentFrame = (currentFrame + 1) % frames.length;
       }, 
       Math.floor(1000.0/settings.framesPerSecond));
       return this;
+    },
+    tempo : function(framesPerSecond) {
+      if(typeof(framesPerSecond) === "number") {
+        settings.framesPerSecond = Math.max(1, framesPerSecond); // avoid dividebyzero
+        methods.start();
+      }
+      return this;
     }
   };
-  
-
 
   $.fn.asciimation = function( method ) {
   
