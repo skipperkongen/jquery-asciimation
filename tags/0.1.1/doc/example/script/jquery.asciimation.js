@@ -57,7 +57,8 @@
         var data = $this.data('asciimation');
 
         if ( ! data ) return;
-
+        
+        clearInterval(data.timer);
         data.timer = setInterval(function() {
 
           data.pre.text(data.frames[data.currentFrame]);
