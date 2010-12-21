@@ -4,14 +4,21 @@
 <script type="text/javascript" src="script/jquery.asciimation-0.1.0.js"></script>
 <script type="text/javascript">
 
+  var fps = 10;
+
   $(function() {
     $("#animation").asciimation({
       'frameClass' : 'frame',
-      'framesPerSecond' : 10,
+      'framesPerSecond' : fps,
       'removeSourceFrames' : true
     });
     $("#animation").asciimation("start").css("backgroundColor", "black").css("color", "white");
     $(".frame").remove();
+    $("#faster").click(function(e) {fps = Math.min( fps * 2, 80); $("#animation").asciimation("fps", fps);});
+    $("#slower").click(function(e) {fps = Math.max( fps / 2, 1); $("#animation").asciimation("fps", fps);});
+    $("#start").click(function(e) {$("#animation").asciimation("start")});
+    $("#stop").click(function(e) {$("#animation").asciimation("stop")});
+    $("#start").disable();
   });
 </script>
 </head>
@@ -24,6 +31,8 @@ Below is an example of using the <a target="_blank" href="">jquery asciimation p
 <h2>Animated ASCII art</h2>
 
 <div id="animation"></div>
+<button id="faster">Faster</button> <button id="slower">Slower</button> <button id="start">Start</button> <button id="stop">Stop</button>
+
 <span class="frame">
                    CCCCC..........C                                                                  
               ...............CC.CCCCCCCC                                                             
