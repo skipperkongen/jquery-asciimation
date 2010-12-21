@@ -1,3 +1,6 @@
+/* ASCIIMATION jQuery plugin by Pimin Konstantin Balic Kefaloukos.
+
+*/
 (function( $ ){
 
   var jTarget;
