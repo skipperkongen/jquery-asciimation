@@ -1,6 +1,12 @@
-/* ASCIIMATION jQuery plugin by Pimin Konstantin Balic Kefaloukos.
-
-*/
+/*!
+ * jQuery plugin ASCIIMATION version v0.1
+ * http://code.google.com/p/jquery-asciimation
+ *
+ * Copyright 2010, Pimin Konstantin Kefaloukos
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ *
+ * Date: Tue Dec 21 21:31:12 RST 2010
+ */
 (function( $ ){
 
   var jTarget;
