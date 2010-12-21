@@ -3,10 +3,11 @@
  * http://code.google.com/p/jquery-asciimation
  *
  * Copyright 2010, Pimin Konstantin Kefaloukos
- * Dual licensed under the MIT or GPL Version 2 licenses.
+ * Licensed under GPL Version 2.
  *
  * Date: Tue Dec 21 21:31:12 RST 2010
  */
+
 (function( $ ){
 
   var jTarget;
