@@ -1,0 +1,28 @@
+<html>
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="http://jquery-asciimation.googlecode.com/files/jquery.asciimation-0.2.0.js"></script>
+<script type="text/javascript">
+
+  $(function() {
+    $("#animation").asciimation({
+      'frameClass' : 'frame',
+      'fps' : 10
+    });
+    $("#animation").asciimation("start");
+    $(".frame").remove();
+    setTimeout(function() {$("#animation").asciimation("stop")}, 3000);
+    setTimeout(function() {$("#animation").asciimation("start")}, 5000);
+    
+  });
+</script>
+</head>
+<body>
+
+Loading please wait... <div id="animation"></div>
+<span class="frame">-</span>
+<span class="frame">/</span>
+<span class="frame">|</span>
+<span class="frame">\</span>
+</body>
+</html>
