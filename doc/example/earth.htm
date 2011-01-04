@@ -4,12 +4,12 @@
 <script type="text/javascript" src="../../src/jquery.asciimation.js"></script>
 <script type="text/javascript">
 
-  var fps = 10;
+  var fps = 8;
 
   $(function() {
     $("#animation").asciimation({
       'frameClass' : 'frame',
-      'framesPerSecond' : fps,
+      'fps' : fps,
       'removeSourceFrames' : true
     });
     $("#animation").asciimation("start").css("backgroundColor", "black").css("color", "white");
