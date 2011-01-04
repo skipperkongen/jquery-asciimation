@@ -12,6 +12,7 @@
 (function( $ ){
 
   var methods = {
+  
     init : function( options ) {
 
       return this.each(function(){
@@ -24,7 +25,7 @@
 
           var settings = {
             'frameClass' : 'frame',
-            'framesPerSecond' : 25
+            'fps' : 25
           };
 
           if ( options ) { 
@@ -40,15 +41,16 @@
           $this.data('asciimation', {
             target : $this,
             frames : frames,
-            fps : settings.framesPerSecond,
+            fps : settings.fps,
             currentFrame : 0,
             timer : null,
             pre : $this.find("pre")
           });
           
         }
-      });
+      })
     },
+    
     start : function( ) {
 
       return this.each(function(){
@@ -69,6 +71,7 @@
       })
 
     },
+    
     stop : function( ) { 
 
       return this.each(function(){
@@ -81,8 +84,11 @@
         data.timer = null;
       })    
     },
+    
     fps : function( framesPerSecond ) { 
 
+      return this.each(function() {
+      
         var $this = $(this);
         var data = $this.data('asciimation');
 
@@ -95,7 +101,9 @@
           data.pre.text(data.frames[data.currentFrame]);
           data.currentFrame = (data.currentFrame + 1) % data.frames.length;          
 
-        }, Math.floor(1000.0/data.fps));      
+        }, Math.floor(1000.0/data.fps));
+      })
+      
     }
   };
 
